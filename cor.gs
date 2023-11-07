@@ -2,6 +2,7 @@
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sheet0 = ss.getSheets()[0];
   const sheet1 = ss.getSheets()[1];
+  const sheet2 = ss.getSheets()[2];
 
 
 function main() {
