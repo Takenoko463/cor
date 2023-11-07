@@ -1,6 +1,7 @@
 function main() {
+  //url 要変更
   const url = "https://itp.ne.jp/genre?genre=%E3%82%B0%E3%83%AB%E3%83%A1%E3%83%BB%E9%A3%B2%E9%A3%9F&subgenre=28&sort=01&sbmap=false&area=13103";
-  //ページ数
+  //ページ数　要変更
   let pagenum = 6;
   //情報を入れる予定の空箱
   let boxes = [];
@@ -32,7 +33,7 @@ function main() {
 
 function sp(boxes) {
   //spreadsheetの指定　Idは要変更
-  const ss = SpreadsheetApp.openById('1FDQ_8JePW1QD5_H2e41k_1V4KPKya1l4OmO2Phw_fDo');
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sheet0 = ss.getSheets()[0];
   let num_box = boxes.length;
   let low_num = boxes[0].length;
