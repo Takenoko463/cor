@@ -5,7 +5,7 @@ function findurl(url){
   const res = UrlFetchApp.fetch(newurl).getContentText('UTF-8');
   var newbox=[];
   //メールをくり抜く
-  let mailbox=res.match(/^[a-zA-Z0-9!$&*.=^`|~#%'+\/?_{}-]+@([a-zA-Z0-9_-]+\.)+[a-zA-Z]{2,4}$/);
+  let mailbox=res.match(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/);
   //お問合せのリンクの正規表現
   let regex= new RegExp(newurl+'[^<>]*contact\/');
   //お問合せのリンクをくり抜く.
