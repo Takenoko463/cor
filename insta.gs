@@ -1,17 +1,37 @@
 //homepageからinstagramのリンクを見つける.
-function instaurl(url){
-  newurl=url.match(/https:\/\/.*?\//);
-  const res = UrlFetchApp.fetch(url).getContentText('UTF-8');
+function findurl(url){
+  var newurlbox=url.match(/https:\/\/.*?\//);
+  let newurl=newurlbox[0];
+  const res = UrlFetchApp.fetch(newurl).getContentText('UTF-8');
+  var newbox=[];
+  //メールをくり抜く
+  let mailbox=res.match(/^[a-zA-Z0-9!$&*.=^`|~#%'+\/?_{}-]+@([a-zA-Z0-9_-]+\.)+[a-zA-Z]{2,4}$/);
+  //お問合せのリンクの正規表現
+  let regex= new RegExp(newurl+'[^<>]*contact\/');
+  //お問合せのリンクをくり抜く.
+  let concatbox=res.match(regex);
   //instagramのリンクをくり抜く.
-  let box=res.match(/https:\/\/www.instagram.com\/[^<>]*\//);
-  if(box){
-    //console.log(box[0]);
-    return box[0];
+  let instabox=res.match(/https:\/\/www.instagram.com\/[^<>]*\//);
+  if(mailbox){
+    newbox.push(mailbox[0]);
   }else{
-    return '';
+    newbox.push('');
   }
+  if(concatbox){
+    newbox.push(concatbox[0])
+  }else{
+    newbox.push('');
+  }
+  if(instabox){
+    newbox.push(instabox[0])
+  }else{
+    newbox.push('');
+  }
+  console.log(newbox);
+  return newbox;
 }
-function instasearch(){
+
+function urlsearch(){
   //最終行
   let lastrow=sheet2.getLastRow();
   //探索するURLsの範囲
@@ -20,10 +40,13 @@ function instasearch(){
   var boxes=urlrange.getValues();
   var newboxes=[];
   boxes.forEach(function(box){
-    newbox=[box[0],instaurl(box[0])];
+    var newbox=findurl(box[0]);
     newboxes.push(newbox);
   })
   //出力範囲
-  var range=sheet2.getRange(2,2,lastrow-1,2);
+  let num=newboxes[0].length;
+  let rownum=newboxes.length;
+  var range=sheet2.getRange(2,3,rownum,num);
+  //出力
   range.setValues(newboxes);
 }
