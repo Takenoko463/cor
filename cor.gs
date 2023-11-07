@@ -1,3 +1,9 @@
+//spreadsheetの指定　Idは要変更
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet0 = ss.getSheets()[0];
+  const sheet1 = ss.getSheets()[1];
+
+
 function main() {
   //url 要変更
   const url = "https://itp.ne.jp/genre?genre=%E3%82%B0%E3%83%AB%E3%83%A1%E3%83%BB%E9%A3%B2%E9%A3%9F&subgenre=28&sort=01&sbmap=false&area=13103";
@@ -32,9 +38,6 @@ function main() {
 
 
 function sp(boxes) {
-  //spreadsheetの指定　Idは要変更
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  const sheet0 = ss.getSheets()[0];
   let num_box = boxes.length;
   let low_num = boxes[0].length;
   let range = sheet0.getRange(2, 1, num_box, low_num);
